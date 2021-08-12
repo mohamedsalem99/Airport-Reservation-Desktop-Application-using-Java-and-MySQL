@@ -1,0 +1,358 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package airport;
+
+import static airport.Form3_2.rbtn_bus;
+import static airport.Form3_2.rbtn_first;
+import static airport.Form3_2.rbtn_local;
+import java.awt.PrintJob;
+import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Dell
+ */
+public class Form5 extends javax.swing.JFrame {
+
+    /**
+     * Creates new form form5
+     */
+    Connection con;
+    PreparedStatement st;
+    //private String Dep_date;
+    public Form5() {
+        initComponents();        
+    }
+
+    String s2="",a="";
+    public Form5(String d,String c) {
+        initComponents();
+        try {
+            s2=d;
+            a=c;
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/airport","root","root");
+            st=con.prepareStatement("select passenger.pass_fname,passenger.pass_lname from passenger where pass_id=?");
+            st.setInt(1,Integer.parseInt(d));
+            JOptionPane.showMessageDialog(this, d);
+            ResultSet rs=st.executeQuery();
+            name.setText(rs.getString(0)+" "+rs.getString(1));
+            JOptionPane.showMessageDialog(this, rs.getString(0)+" "+rs.getString(1));
+            name1.setText(rs.getString(0)+" "+rs.getString(1));
+            Class.setText(c);
+            seat.setText(d);
+            
+            st=con.prepareStatement("SELECT ticket.t_from,ticket.t_to,ticket.t_depature FROM airport.ticket where t_pass_id=?");
+            st.setInt(1,Integer.parseInt(d));
+            ResultSet rs1=st.executeQuery();
+            to.setText(rs1.getString(1));
+            from.setText(rs1.getString(0));
+            date.setText(rs1.getString(2));
+            to1.setText(rs1.getString(1));
+            date1.setText(rs1.getString(2));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Form5.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public Form5(int d,String c) {
+        initComponents();
+        try {
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/airport","root","root");
+            st=con.prepareStatement("select passenger.pass_fname,passenger.pass_lname from passenger where pass_id=?");
+            st.setInt(1,d);
+            JOptionPane.showMessageDialog(this, d);
+            ResultSet rs=st.executeQuery();
+            //name.setText(rs.getString(0)+" "+rs.getString(1));
+           // JOptionPane.showMessageDialog(this, rs.getString(0)+" "+rs.getString(1));
+            //name1.setText(rs.getString(0)+" "+rs.getString(1));
+            //Class.setText(c);
+            //seat.setText(d);
+            
+            st=con.prepareStatement("SELECT ticket.t_from,ticket.t_to,ticket.t_depature FROM airport.ticket where t_pass_id=?");
+            st.setInt(1,d);
+            ResultSet rs1=st.executeQuery();
+           // to.setText(rs1.getString(1));
+           // from.setText(rs1.getString(0));
+           // date.setText(rs1.getString(2));
+           // to1.setText(rs1.getString(1));
+           // date1.setText(rs1.getString(2));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Form5.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /*public Form5(int d,String c) {
+        initComponents();
+        try {
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/airport","root","root");
+            st=con.prepareStatement("select passenger.pass_fname,passenger.pass_lname from passenger where pass_id=?");
+            st.setInt(1,d);
+            ResultSet rs=st.executeQuery();
+            name.setText(rs.getString(0)+" "+rs.getString(1));
+            name1.setText(rs.getString(0)+" "+rs.getString(1));
+            Class.setText(c);
+            seat.setText(d.toString());
+            
+            st=con.prepareStatement("SELECT ticket.t_from,ticket.t_to,ticket.t_depature FROM airport.ticket where t_pass_id=?");
+            st.setInt(1,Integer.parseInt(d));
+            ResultSet rs1=st.executeQuery();
+            to.setText(rs1.getString(1));
+            from.setText(rs1.getString(0));
+            date.setText(rs1.getString(2));
+            to1.setText(rs1.getString(1));
+            date1.setText(rs1.getString(2));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Form5.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }*/
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        to = new javax.swing.JTextField();
+        from = new javax.swing.JTextField();
+        name1 = new javax.swing.JTextField();
+        to1 = new javax.swing.JTextField();
+        name = new javax.swing.JTextField();
+        date = new javax.swing.JTextField();
+        time = new javax.swing.JTextField();
+        seat = new javax.swing.JTextField();
+        date1 = new javax.swing.JTextField();
+        seat1 = new javax.swing.JTextField();
+        Class = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        load = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(null);
+
+        jButton1.setText("print");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(50, 360, 150, 40);
+
+        jPanel2.setLayout(null);
+
+        to.setEnabled(false);
+        jPanel2.add(to);
+        to.setBounds(170, 190, 170, 20);
+
+        from.setEnabled(false);
+        jPanel2.add(from);
+        from.setBounds(170, 230, 170, 20);
+
+        name1.setEnabled(false);
+        jPanel2.add(name1);
+        name1.setBounds(550, 80, 150, 20);
+
+        to1.setEnabled(false);
+        jPanel2.add(to1);
+        to1.setBounds(550, 110, 150, 20);
+
+        name.setEnabled(false);
+        jPanel2.add(name);
+        name.setBounds(170, 150, 170, 20);
+
+        date.setEnabled(false);
+        jPanel2.add(date);
+        date.setBounds(420, 150, 80, 22);
+
+        time.setEnabled(false);
+        jPanel2.add(time);
+        time.setBounds(340, 190, 80, 22);
+
+        seat.setEnabled(false);
+        jPanel2.add(seat);
+        seat.setBounds(420, 190, 80, 22);
+
+        date1.setEnabled(false);
+        jPanel2.add(date1);
+        date1.setBounds(700, 80, 70, 20);
+
+        seat1.setEnabled(false);
+        jPanel2.add(seat1);
+        seat1.setBounds(700, 110, 70, 22);
+
+        Class.setEnabled(false);
+        Class.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClassActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Class);
+        Class.setBounds(340, 150, 80, 22);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airport/tt.PNG"))); // NOI18N
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(0, 10, 780, 300);
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(20, 10, 780, 310);
+
+        load.setText("load");
+        load.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadActionPerformed(evt);
+            }
+        });
+        jPanel1.add(load);
+        load.setBounds(620, 360, 150, 50);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell\\Desktop\\5.png")); // NOI18N
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(0, 0, 860, 430);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 863, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void ClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ClassActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+      
+        
+        Toolkit tkp = jPanel2.getToolkit();
+    PrintJob pjp=tkp.getPrintJob(this, null, null); 
+        java.awt.Graphics g=pjp.getGraphics();
+        jPanel2.printAll((java.awt.Graphics) g);
+        g.dispose();
+      pjp.end();  
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void loadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadActionPerformed
+        // TODO add your handling code here:
+        try {
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/airport","root","root");
+            st=con.prepareStatement("select passenger.pass_fname,passenger.pass_lname from passenger where pass_id=?");
+            st.setInt(1,2);
+            
+            ResultSet rs=st.executeQuery();
+            //JOptionPane.showMessageDialog(this, rs);
+            name.setText(Form3_1.txt1_fname.getText()+" "+Form3_1.txt2_lname.getText());
+            //JOptionPane.showMessageDialog(this, rs.getString(0)+" "+rs.getString(1));
+            name1.setText(Form3_1.txt1_fname.getText()+" "+Form3_1.txt2_lname.getText());
+            String s1="";
+            if(rbtn_first.isSelected())
+                s1="First class";
+            else if(rbtn_local.isSelected())
+                s1="local class";
+            else if(rbtn_bus.isSelected())
+                s1="Business calss";
+            Class.setText(s1);
+            //seat.setText(d);
+            date.setText(Form3_2.Dep_);
+            st=con.prepareStatement("SELECT ticket.t_from,ticket.t_to,ticket.t_depature FROM airport.ticket where t_pass_id=?");
+            st.setInt(1,Integer.parseInt(s2));
+            ResultSet rs1=st.executeQuery();
+            to.setText(rs1.getString(1));
+            from.setText(rs1.getString(0));
+            
+            to1.setText(rs1.getString(1));
+            date1.setText(rs1.getString(2));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Form5.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_loadActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Form5.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Form5.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Form5.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Form5.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Form5().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Class;
+    private javax.swing.JTextField date;
+    private javax.swing.JTextField date1;
+    private javax.swing.JTextField from;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton load;
+    private javax.swing.JTextField name;
+    private javax.swing.JTextField name1;
+    private javax.swing.JTextField seat;
+    private javax.swing.JTextField seat1;
+    private javax.swing.JTextField time;
+    private javax.swing.JTextField to;
+    private javax.swing.JTextField to1;
+    // End of variables declaration//GEN-END:variables
+}
